@@ -14,13 +14,13 @@ RUN pip install git+git://github.com/jupyter/dockerspawner.git
 RUN mkdir /srv/oauthenticator
 WORKDIR /srv/oauthenticator
 ENV OAUTHENTICATOR_DIR /srv/oauthenticator
-ADD addusers.sh /srv/oauthenticator/addusers.sh
-ADD userlist /srv/oauthenticator/userlist
 ADD ssl /srv/oauthenticator/ssl
 RUN chmod 700 /srv/oauthenticator
 RUN groupadd hubadmin
 RUN echo "%hubadmin ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-VOLUME /home
+ADD jupyterhub_config.py /srv/jupyterhub/jupyterhub_config.py
 
-RUN ["sh", "/srv/oauthenticator/addusers.sh"]
+ENV USERS_DIR /output
+
+VOLUME /home
