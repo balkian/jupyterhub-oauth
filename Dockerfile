@@ -7,8 +7,10 @@ FROM jupyter/jupyterhub
 MAINTAINER Project Jupyter <ipython-dev@scipy.org>
 
 # Install oauthenticator from git
-RUN pip install git+git://github.com/jupyter/oauthenticator.git
-RUN pip install git+git://github.com/jupyter/dockerspawner.git
+ADD oauthenticator /src/oauthenticator
+ADD dockerspawner /src/dockerspawner
+RUN pip install /src/oauthenticator
+RUN pip install /src/dockerspawner
 
 # Create oauthenticator directory and put necessary files in it
 RUN mkdir /srv/oauthenticator

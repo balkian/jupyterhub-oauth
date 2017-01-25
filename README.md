@@ -3,29 +3,45 @@
 Example of running [JupyterHub](https://github.com/jupyter/jupyterhub)
 with [GitHub OAuth](https://developer.github.com/v3/oauth/) for authentication.
 
-## setup
+## Variables
 
-Edit the file called `userlist` to include one GitHub user name per line.
-If that user should be an admin (you!), add `admin` after a space.
 
-For example:
+### General variables
 
 ```
-mal admin
-zoe admin
-wash
-inara admin
-kaylee
-jayne
-simon
-river
+ADMINS=balkian,oaraque
+OAUTH_CALLBACK_URL=http://hub.cluster.gsi.dit.upm.es/hub/oauth_callback
+HOST_HOMEDIR=/mnt/home/{username} # {username} will be replaced by the actual OAuth user
+```
+
+## Gitlab variables:
+
+```
+GITLAB_HOST=https://lab.cluster.gsi.dit.upm.es/
+GITLAB_CLIENT_ID=TheMaxiID
+GITLAB_CLIENT_SECRET=TheMaxiSecret
+OAUTH_CLASS=oauthenticator.gitlab.GitLabOAuthenticator 
+DATASETS_DIR=/home/datasets # READ ONLY
+COMMON_DIR=/home/common # To share files between users
+```
+
+## GitHub variables:
+
+```
+GITHUB_CLIENT_ID=GHId
+GITHUB_CLIENT_SECRET=GHSecret
+OAUTH_CLASS=oauthenticator.github.GitHubOAuthenticator 
 ```
 
 ## build
 
 Build the container with:
 
-    docker build -t jupyter/oauthenticator .
+    make build
+    
+Alternatively:
+
+    docker build -t gsiupm/jupyter-oauth:testing .
 
 ### ssl
 
@@ -34,9 +50,13 @@ ssl/ssl.cert.
 
 ## run
 
-Add your oauth client id, client secret, and callback URL to the `env file`.
+Add your oauth client id, client secret, and callback URL to your `env file` (i.e. `.env`).
 Once you have built the container, you can run it with:
 
-    docker run -it -p 8000:8000 --env-file=env jupyter/oauthenticator
+    make run
+    
+Alternatively:
+
+    docker run -it -p 8000:8000 --env-file=env gsiupm/jupyter-oauth:testing
 
 Which will run the Jupyter server.

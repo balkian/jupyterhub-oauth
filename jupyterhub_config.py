@@ -29,6 +29,16 @@ c.DockerSpawner.notebook_dir = notebook_dir
 # notebook directory in the container
 c.DockerSpawner.volumes = { HOME_FORMAT_STRING: notebook_dir }
 
+common = os.environ.get('COMMON_DIR')
+
+if common:
+    c.DockerSpawner.volumes[common] = join(notebook_dir, 'common')
+
+dsdir = os.environ.get('DATASETS_DIR')
+
+if dsdir:
+    c.DockerSpawner.read_only_volumes = { dsdir: join(notebook_dir, 'DATASETS')}
+
 import socket
 ips = ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1])
 c.JupyterHub.hub_ip = ips[0]
