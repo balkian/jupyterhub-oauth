@@ -1,6 +1,6 @@
 [submodule "oauthenticator"]
 	path = oauthenticator
-	url = https://github.com/jupyter/oauthenticator.git
+	url = https://github.com/balkian/oauthenticator.git
 [submodule "dockerspawner"]
 	path = dockerspawner
 	url = https://github.com/jupyter/dockerspawner.git
