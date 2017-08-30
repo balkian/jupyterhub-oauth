@@ -19,7 +19,7 @@ teams = os.environ.get('OAUTHENTICATOR_TEAMS', None)
 
 c.JupyterHub.log_level = 10
 c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
-c.DockerSpawner.container_image = 'jupyter/scipy-singleuser'
+c.DockerSpawner.container_image = 'jupyter/scipy-notebook'
 c.DockerSpawner.use_internal_ip = True
 
 notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan/work'

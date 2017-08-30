@@ -1,10 +1,13 @@
 VERSION=`cat VERSION`
-REPO="balkian/jupyterhub-oauth"
+REPO="gsiupm/jupyterhub-oauth"
 TEST=$(REPO):test-$(VERSION)
 FINAL=$(REPO):$(VERSION)
 
 
-build:
+Dockerfile: Dockerfile.template VERSION
+	cat Dockerfile.template | VERSION=$(VERSION) envsubst > Dockerfile
+
+build: Dockerfile
 	docker build -t $(TEST) .
 
 run:
