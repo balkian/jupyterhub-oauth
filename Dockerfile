@@ -2,7 +2,7 @@
 # 
 # docker run -it -p 8000:8000 jupyter/oauthenticator
 
-FROM jupyterhub/jupyterhub:0.7.2
+FROM jupyterhub/jupyterhub:0.8.1
 
 MAINTAINER Project Jupyter <ipython-dev@scipy.org>
 
