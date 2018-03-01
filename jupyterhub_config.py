@@ -43,13 +43,7 @@ import socket
 ips = ([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1])
 c.JupyterHub.hub_ip = ips[0]
 
-# c.JupyterHub.authenticator_class = 'oauthenticator.{}'.format(auth_class_name)
 c.JupyterHub.authenticator_class = OAUTH_CLASS
-# auth_class = getattr(c, 'auth_class_name')
-# auth_class = getattr(c, 'GitHubOAuthenticator')
-# auth_class.oauth_callback_url = os.environ['OAUTH_CALLBACK_URL']
-# auth_class = getattr(c, auth_short_name)
-# auth_class.create_system_users = False
 
 c.Authenticator.whitelist = whitelist = set()
 c.Authenticator.admin_users = admin = PREADMINS
@@ -61,5 +55,3 @@ if os.path.exists(keyfile):
     c.JupyterHub.ssl_key = keyfile
 if os.path.exists(certfile):
     c.JupyterHub.ssl_cert = certfile
-
-# load_from_json()

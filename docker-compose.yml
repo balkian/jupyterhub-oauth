@@ -1,0 +1,26 @@
+version: '2'
+services:
+  jupyterhub:
+      image: gsiupm/jupyterhub-oauth:testing
+      build: .
+      command: jupyterhub --no-ssl -f /srv/jupyterhub/jupyterhub_config.py
+      hostname: jupyterhub
+      restart_policy: always
+      ports:
+        - "8000:8000"
+      volumes:
+          - "/mnt/home:/home"
+          - "/var/run/docker.sock:/var/run/docker.sock"
+      env:
+          OAUTH_CALLBACK_URL: "https://hub.cluster.gsi.dit.upm.es/hub/oauth_callback"
+          HOST_HOMEDIR: "/mnt/home/{username}"
+          ADMINS: "balkian,oaraque"
+          OAUTH_CLASS: "oauthenticator.gitlab.GitLabOAuthenticator"
+          GITLAB_HOST: "https://lab.cluster.gsi.dit.upm.es/"
+          GITLAB_CLIENT_ID: "${GITLAB_CLIENT_ID}"
+          GITLAB_CLIENT_SECRET: "${GITLAB_CLIENT_SECRET}"
+          JPY_COOKIE_SECRET: "${JPY_COOKIE_SECRET}"
+          JPY_API_TOKEN: "${CONFIGPROXY_AUTH_TOKEN}"
+          OAUTH_TLS_VERIFY: 0
+          COMMON_DIR: "/mnt/home/common"
+          DATASETS_DIR: "/mnt/home/datasets"
